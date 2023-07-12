@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;700&family=Roboto:ital,wght@1,900&display=swap');
+    
+body {
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  
+  .container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+  }
+
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+#name {
+    position: absolute;
+    bottom: 10%;
+    left: 2%;
+    transform: translateY(-50%);
+    font-size: 35px;
+    color: #333;
+    cursor: none;
+    transition: transform 0.3s ease;
+  }
+  
+
+  .text-links {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    text-align: right;
+  }
+  
+
+.text-links a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transform-origin: top right;
+  font-size: 24px; /* Add this line to set the font size */
+}
+
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #EDEDED;
+  cursor: grab;
+}
+#c:active {
+cursor: grabbing;
+}
+.icon-scroll,
+.icon-scroll:before {
+position: absolute;
+left: 50%;
+top: -50%;
+}
+.icon-scroll {
+width: 15px;
+
+} 
+
+.icon-scroll {
+  position: relative;
+
+}
+.icon-scroll:before {
+content: '';
+width: 10px;
+height: 10px;
+background: white;
+margin-left: -10px;
+top: 20px;
+border-radius: 5px;
+animation-duration: 2.5s;
+animation-iteration-count: infinite;
+animation-name: scroll
+}
+@keyframes scroll {
+0% {
+  opacity: 0;
+}
+5% {
+  opacity: 0;
+}
+20% {
+  opacity: 1;
+}
+
+100% {
+  opacity: 0;
+  transform: translateY(60px)
+}
+}
+
+.loading-screen {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%,-50%);
+width:100%;
+height: 100%;
+background-color: rgba(237,237,237,0.8);
+display: flex ;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: black;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: normal;
+font-size: small;
+}
