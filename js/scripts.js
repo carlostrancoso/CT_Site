@@ -8,12 +8,14 @@ const projectTitle = document.querySelector('.project-title');
 const slideshow = document.querySelector('.slideshow');
 const projectDescription = document.querySelector('.project-description');
 
+// ...
+
 projectLinks.forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
 
     const projectId = link.id;
-    const projectData = getProjectData(projectId); // Retrieve project data based on the project ID
+    const projectData = getProjectData(projectId);
 
     if (projectData) {
       // Show the overlay container
@@ -21,14 +23,38 @@ projectLinks.forEach((link) => {
 
       // Populate the overlay content with project data
       projectTitle.textContent = projectData.title;
-      slideshow.innerHTML = projectData.slideshow;
       projectDescription.textContent = projectData.description;
+
+      // Create a new Swiper instance for the current project
+      const swiperContainer = document.createElement('div');
+      swiperContainer.className = 'swiper-container';
+      swiperContainer.innerHTML = `
+        <div class="swiper-wrapper">
+          ${projectData.slideshow}
+        </div>
+        <div class="swiper-pagination"></div>
+      `;
+
+      // Clear previous content and append the new container
+      slideshow.innerHTML = '';
+      slideshow.appendChild(swiperContainer);
 
       // Prevent scrolling when the overlay is open
       document.body.style.overflow = 'hidden';
+
+      // Initialize the Swiper instance for the current project
+      const mySwiper = new Swiper(swiperContainer, {
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+      document.body.style.overflow = 'hidden';  
     }
   });
 });
+
+// ...
+
 
 closeButton.addEventListener('click', () => {
   // Hide the overlay container
@@ -43,28 +69,37 @@ function getProjectData(projectId) {
   const projects = {
     project1: {
       title: 'How to build a telescope',
-      slideshow: '<img src="project1-image1.jpg" alt="Project 1 Image 1"><img src="project1-image2.jpg" alt="Project 1 Image 2">',
-      description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention. Being intimate, the project reveals itself against an ethnographic approach, seeking to dismantle prejudices associated with technology that, in the contemporary rural world, has its maximum expression of freedom. The approach is thus fictional and it’s constantly drawing a constellation map surrounding the perception of affection on technology. It addresses the importance of reshaping the future of technology against mass production, proposing a reconnection between user, creator and creations.'
+      description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention...',
+      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="HTBAT_01.jpg"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_03.jpg" alt="Project 1 Image 3"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_04.jpg" alt="Project 1 Image 2"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_02.jpg" alt="Project 1 Image 4"></div>'
     },
     project2: {
       title: 'Rise of trivial',
-      slideshow: '<img src="project2-image1.jpg" alt="Project 2 Image 1"><img src="project2-image2.jpg" alt="Project 2 Image 2">',
+      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 2 Image 1"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 2 Image 2"></div>',
       description: '‘Rise of trivial’ is a multiplatform project about virtual identity and the ways we interact in the internet.'
     },
     project3: {
       title: 'Glad I spent it with you',
-      slideshow: '<img src="project3-image1.jpg" alt="Project 3 Image 1"><img src="project3-image2.jpg" alt="Project 3 Image 2">',
-      description: 'There is no such thing as a manual on reading digital images for humans. “Glad I spent it with you” is a set of images that unveil the basic structure of a digital image. These images are the product of unintentional errors that occured with a broken storage card. Although the files were corrupted, the machine maked the effort on reading the data, producing images that denounce the reading methods of the basic units that constitutes the digital photographs we produce with our cameras. This project intends to reclaim the authorship associated with images whose initial intention of assisting memory transforms into the realization and consecration of the digital image as an ephemeral by-product of contemporary virtual culture.'
+      description: 'There is no such thing as a manual on reading digital images for humans...',
+      slideshow: `
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_01.jpg" alt="Project 3 Image 1"></div>
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_02.jpg" alt="Project 3 Image 2"></div>
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_03.jpg" alt="Project 3 Image 3"></div>
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_04.jpg" alt="Project 3 Image 4"></div>
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_05.jpg" alt="Project 3 Image 5"></div>
+        <div class="swiper-slide"><img src="./content/jpg/GISWY_06.jpg" alt="Project 3 Image 6"></div>
+      `
     },
     project4: {
       title: 'Narrow Slice',
-      slideshow: '<img src="project4-image1.jpg" alt="Project 4 Image 1"><img src="project4-image2.jpg" alt="Project 4 Image 2">',
-      description: '“Isn’t the human emancipation of Nature really just an outcome of our own Nature?” ‘Narrow Slice’ is a documentary photography project that deals with the way human beings position themselves in time and space in relation to Nature. The unease caused by the ambiguity of this query proposes us to revisit the apparent reality, leading to the formulation of new questions.'
+      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 4 Image 1"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 4 Image 2"></div>',
+      description: '“Isn’t the human emancipation of Nature really just an outcome of our own Nature?”...'
     }
   };
 
   return projects[projectId] || null; // Return project data for the given ID (or null if not found)
 }
+
+
 
 
 const worksOffset = 0; // Adjust the initial offset for Works link movement
@@ -114,3 +149,11 @@ function animateLinks() {
 }
 
 animateLinks();
+
+// Swiper initialization
+const mySwiper = new Swiper('.swiper-container', {
+  // Additional Swiper configuration options can be added here
+  pagination: {
+    el: '.swiper-pagination',
+  },
+});
