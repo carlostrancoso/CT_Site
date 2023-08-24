@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 const worksLink = document.querySelector('.works-link');
 const aboutLink = document.querySelector('.about-link');
 const nameText = document.querySelector('.name.logo'); // Select the h1 element with both name and logo classes
@@ -9,6 +10,17 @@ const slideshow = document.querySelector('.slideshow');
 const projectDescription = document.querySelector('.project-description');
 
 // ...
+
+// Check if the closeButton is present before adding the event listener
+if (closeButton) {
+  closeButton.addEventListener('click', () => {
+    // Hide the overlay container
+    overlayContainer.style.display = 'none';
+
+    // Reset scrolling when the overlay is closed
+    document.body.style.overflow = '';
+  });
+}
 
 projectLinks.forEach((link) => {
   link.addEventListener('click', (e) => {
@@ -157,3 +169,8 @@ const mySwiper = new Swiper('.swiper-container', {
     el: '.swiper-pagination',
   },
 });
+
+
+});
+
+

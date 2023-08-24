@@ -1,19 +1,28 @@
-@font-face {
-  font-family: 'Eskool';
-  src: url('content/fonts/Eskool-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 body {
-  font-family: 'Eskool', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: #f9be13;
   overflow: hidden;
   margin: 0;
   padding: 0;
+  animation: backgroundTransition 10s infinite alternate; /* Apply animation */
 }
+
+@keyframes backgroundTransition {
+  0% {
+    background-color: #f9be13; /* Initial color */
+  }
+  50% {
+    background-color: #45a6d8; /* Mid-transition color */
+  }
+  100% {
+    background-color: #f9be13; /* Back to initial color */
+  }
+}
+
+
 
 h1.logo {
   position: fixed;
