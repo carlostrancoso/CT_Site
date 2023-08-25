@@ -7,20 +7,22 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  animation: backgroundTransition 10s infinite alternate;
+  animation: backgroundTransition 10s infinite alternate; /* Apply animation */
 }
 
 @keyframes backgroundTransition {
   0% {
-    background-color: #f9be13;
+    background-color: #f9be13; /* Initial color */
   }
   50% {
-    background-color: #45a6d8;
+    background-color: #45a6d8; /* Mid-transition color */
   }
   100% {
-    background-color: #f9be13;
+    background-color: #f9be13; /* Back to initial color */
   }
 }
+
+
 
 h1.logo {
   position: fixed;
@@ -88,12 +90,11 @@ h1.logo a {
 }
 
 .projects-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    visibility: hidden; /* Initially hide the project links */
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .projects {
   position: relative;
@@ -102,17 +103,18 @@ h1.logo a {
   text-decoration: none;
   transition: transform 0.3s ease;
   background-color: #ff9fc7;
-  border: 2px solid black;
-  width: 120vw;
-  margin: 2vh;
+  border: 2px solid black; /* Add a black border */
+  width: 120vw; /* A  djust the width as needed */
+  margin: 2vh; /* Adjust the margin to increase the space between project names */
 }
 
 .overlay-container {
+  /* Existing styles */
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Center adjustment */
   background-color: white;
   z-index: 999;
   overflow-x: hidden;
@@ -120,13 +122,13 @@ h1.logo a {
 
 .overlay-content {
   position: relative;
-  width: 90vw;
-  height: 90vh;
+  width: 90vw; /* 95% of viewport width */
+  height: 90vh; /* 95% of viewport height */
   background-color: white;
   border: 4px solid #000;
   text-align: center;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds box height */
 }
 
 .close-button {
@@ -144,7 +146,9 @@ h1.logo a {
   top: 0px;
   right: 0px;
   z-index: 999;
+
 }
+
 
 .project-title {
   font-size: 24px;
@@ -161,12 +165,13 @@ h1.logo a {
   text-align: left;
 }
 
+
 .logo {
   cursor: pointer;
 }
 
 .about-content {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -184,8 +189,8 @@ h1.logo a {
 }
 
 .image-container img {
-  width: 100%;
-  max-width: 300px;
+  width: 100%; /* Adjust image width for small screens */
+  max-width: 300px; /* Adjust maximum image width for small screens */
 }
 
 .text-container h6 {
@@ -218,11 +223,11 @@ h1.logo a {
   }
 
   .image-container {
-    margin: 10px 0;
+    margin: 10px 0; /* Adjust margin for better spacing */
   }
 
   .image-container img {
-    min-width: 50%;
+    min-width: 20%;
   }
 
   .text-container h6 {
@@ -230,8 +235,40 @@ h1.logo a {
     font-size: 14px;
   }
 
-  .overlay-content {
-    max-height: calc(90vh - 40px);
-  }
-  
+}
+
+
+
+.overlay-content {
+  position: relative;
+  width: 90vw;
+  max-height: calc(90vh - 40px); /* Adjusted to account for close button */
+  background-color: white;
+  text-align: center;
+  overflow-y: auto;
+  /* Rest of your styles */
+}
+
+
+.overlay-content::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+.overlay-content::-webkit-scrollbar-thumb {
+  background-color: black; /* Color of the scrollbar thumb */
+}
+
+.overlay-content::-webkit-scrollbar-button {
+  display: none;
+}
+
+.overlay-content::-webkit-scrollbar-track {
+  background-color: transparent; /* Hide the track background */
+}
+
+
+.swiper-container img {
+  width: 60vw;
+  max-width: 450px; 
+  height: auto;
 }

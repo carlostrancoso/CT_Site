@@ -1,93 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const worksLink = document.querySelector('.works-link');
-  const aboutLink = document.querySelector('.about-link');
-  const nameText = document.querySelector('.name.logo');
-  const projectLinks = document.querySelectorAll('.projects');
-  const projectsContainer = document.querySelector('.projects-container');
-  const backgroundIframe = document.querySelector('.background-iframe');
-  const overlayContainer = document.querySelector('.overlay-container');
-  const closeButton = document.querySelector('.close-button');
-  const projectTitle = document.querySelector('.project-title');
-  const slideshow = document.querySelector('.slideshow');
-  const projectDescription = document.querySelector('.project-description');
-  const aboutContent = document.querySelector('.about-content');
+const worksLink = document.querySelector('.works-link');
+const aboutLink = document.querySelector('.about-link');
+const nameText = document.querySelector('.name.logo'); // Select the h1 element with both name and logo classes
+const projectLinks = document.querySelectorAll('.projects');
+const overlayContainer = document.querySelector('.overlay-container');
+const closeButton = document.querySelector('.close-button');
+const projectTitle = document.querySelector('.project-title');
+const slideshow = document.querySelector('.slideshow');
+const projectDescription = document.querySelector('.project-description');
 
-  let projectLinksVisible = false; // To track whether project links are visible
+// ...
 
-
-  worksLink.addEventListener('click', () => {
-    projectsContainer.style.visibility = 'visible';
-    projectLinksVisible = true;
-    backgroundIframe.style.display = 'none';
-    aboutContent.style.display = 'none'; // Hide the about content
-  });
-
-  aboutLink.addEventListener('click', () => {
-    projectsContainer.style.visibility = 'hidden'; // Hide project links
-    projectLinksVisible = false; // Set project links visibility to false
-    backgroundIframe.style.display = 'none'; // Hide the iframe
-    overlayContainer.style.display = 'none';
-    aboutContent.style.display = 'flex'; // Show about content
-    document.body.style.overflow = ''; // Restore body scrolling
-  });
-
+// Check if the closeButton is present before adding the event listener
+if (closeButton) {
   closeButton.addEventListener('click', () => {
-    projectsContainer.style.visibility = 'visible';
-    backgroundIframe.style.display = 'none';
-    aboutContent.style.display = 'none'; // Hide the about content
-    overlayContainer.style.display = 'none'; // Hide the overlay
-    document.body.style.overflow = ''; // Restore body scrolling
-  });
-
-  nameText.addEventListener('click', () => {
-    projectsContainer.style.visibility = 'hidden';
-    backgroundIframe.style.display = 'block';
-    aboutContent.style.display = 'none'; // Hide the about content
+    // Hide the overlay container
     overlayContainer.style.display = 'none';
-    document.body.style.overflow = ''; // Restore body scrolling
+
+    // Reset scrolling when the overlay is closed
+    document.body.style.overflow = '';
   });
+}
 
-  projectLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
+projectLinks.forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
 
-      if (!projectLinksVisible) return; // Only proceed if project links are visible
+    const projectId = link.id;
+    const projectData = getProjectData(projectId);
 
-      const projectId = link.id;
-      const projectData = getProjectData(projectId);
+    if (projectData) {
+      // Show the overlay container
+      overlayContainer.style.display = 'flex';
 
-      if (projectData) {
-        overlayContainer.style.display = 'flex';
-        projectTitle.textContent = projectData.title;
-        projectDescription.textContent = projectData.description;
+      // Populate the overlay content with project data
+      projectTitle.textContent = projectData.title;
+      projectDescription.textContent = projectData.description;
 
-        const swiperContainer = document.createElement('div');
-        swiperContainer.className = 'swiper-container';
-        swiperContainer.innerHTML = `
-          <div class="swiper-wrapper">
-            ${projectData.slideshow}
-          </div>
-          <div class="swiper-pagination"></div>
-        `;
+      // Create a new Swiper instance for the current project
+      const swiperContainer = document.createElement('div');
+      swiperContainer.className = 'swiper-container';
+      swiperContainer.innerHTML = `
+        <div class="swiper-wrapper">
+          ${projectData.slideshow}
+        </div>
+        <div class="swiper-pagination"></div>
+      `;
 
-        slideshow.innerHTML = '';
-        slideshow.appendChild(swiperContainer);
+      // Clear previous content and append the new container
+      slideshow.innerHTML = '';
+      slideshow.appendChild(swiperContainer);
 
-        document.body.style.overflow = 'hidden';
+      // Prevent scrolling when the overlay is open
+      document.body.style.overflow = 'hidden';
 
-        const mySwiper = new Swiper(swiperContainer, {
-          pagination: {
-            el: '.swiper-pagination',
-          },
-        });
- 
-      }
-    });
+      // Initialize the Swiper instance for the current project
+      const mySwiper = new Swiper(swiperContainer, {
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+      document.body.style.overflow = 'hidden';  
+    }
   });
+});
+
+// ...
 
 
-  function getProjectData(projectId) {
-    const projects = {
+closeButton.addEventListener('click', () => {
+  // Hide the overlay container
+  overlayContainer.style.display = 'none';
+
+  // Reset scrolling when the overlay is closed
+  document.body.style.overflow = '';
+});
+
+function getProjectData(projectId) {
+  // Define a sample dataset for demonstration purposes
+  const projects = {
     project1: {
       title: 'How to build a telescope',
       description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention...',
@@ -117,22 +108,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  return projects[projectId] || null;
+  return projects[projectId] || null; // Return project data for the given ID (or null if not found)
 }
 
-const worksOffset = 0;
-const aboutOffset = 10;
+
+
+
+const worksOffset = 0; // Adjust the initial offset for Works link movement
+const aboutOffset = 10; // Adjust the initial offset for About link movement
 
 let mouseX = 0;
 let mouseY = 0;
 let time = 0;
-const speed = 0.005;
+const speed = 0.005; // Adjust the speed of the movement
 
 function updateMousePosition(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
 
-  const skewAmount = 6;
+  const skewAmount = 6; // Adjust the amount of skew transformation
 
   const skewX = (mouseX / window.innerWidth - 0.5) * skewAmount;
   const skewY = (mouseY / window.innerHeight - 0.5) * skewAmount;
@@ -154,11 +148,12 @@ function animateLinks() {
   nameText.style.transform = `translateX(${worksXMovement}px) translateY(${worksYMovement}px)`;
 
   projectLinks.forEach((link, index) => {
-    const projectOffset = index * 10;
+    const projectOffset = index * 10; // Adjust the initial offset for each project
     const projectXMovement = projectOffset + Math.sin(time) * 6 + mouseY / window.innerHeight * 4 - 2;
     const projectYMovement = projectOffset + Math.cos(time) * 6 + mouseX / window.innerWidth * 4 - 2;
 
     link.style.transform = `translateX(${projectXMovement}px) translateY(${projectYMovement}px) skewX(${projectYMovement / 10}deg) skewY(${projectXMovement / -4}deg)`;
+
   });
 
   time += speed;
@@ -167,9 +162,15 @@ function animateLinks() {
 
 animateLinks();
 
+// Swiper initialization
 const mySwiper = new Swiper('.swiper-container', {
+  // Additional Swiper configuration options can be added here
   pagination: {
     el: '.swiper-pagination',
   },
 });
+
+
 });
+
+
