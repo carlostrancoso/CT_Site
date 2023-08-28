@@ -50,70 +50,142 @@ document.addEventListener('DOMContentLoaded', () => {
   projectLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-
+  
       if (!projectLinksVisible) return; // Only proceed if project links are visible
-
+  
       const projectId = link.id;
       const projectData = getProjectData(projectId);
-
+  
       if (projectData) {
         overlayContainer.style.display = 'flex';
-        projectTitle.textContent = projectData.title;
-        projectDescription.textContent = projectData.description;
-
-        const swiperContainer = document.createElement('div');
-        swiperContainer.className = 'swiper-container';
-        swiperContainer.innerHTML = `
-          <div class="swiper-wrapper">
-            ${projectData.slideshow}
-          </div>
-          <div class="swiper-pagination"></div>
-        `;
-
-        slideshow.innerHTML = '';
-        slideshow.appendChild(swiperContainer);
-
         document.body.style.overflow = 'hidden';
-
-        const mySwiper = new Swiper(swiperContainer, {
-          pagination: {
-            el: '.swiper-pagination',
-          },
-        });
- 
+  
+        if (projectData.series) {
+          // Display multiple series
+          slideshow.innerHTML = '';
+  
+          projectData.series.forEach((series) => {
+            const seriesTitle = document.createElement('h2');
+            seriesTitle.className = 'project-title';
+            seriesTitle.textContent = series.title;
+  
+            const seriesDescription = document.createElement('p');
+            seriesDescription.className = 'project-description';
+            seriesDescription.textContent = series.description;
+  
+            const swiperContainer = document.createElement('div');
+            swiperContainer.className = 'swiper-container';
+            swiperContainer.innerHTML = `
+              <div class="swiper-wrapper">
+                ${series.slideshow}
+              </div>
+              <div class="swiper-pagination"></div>
+            `;
+            
+            slideshow.appendChild(swiperContainer);
+            slideshow.appendChild(seriesTitle);
+            slideshow.appendChild(seriesDescription);
+            
+  
+            const mySwiper = new Swiper(swiperContainer, {
+              pagination: {
+                el: '.swiper-pagination',
+              },
+            });
+          });
+        } else {
+          // Display single project data
+          projectTitle.textContent = projectData.title;
+          projectDescription.textContent = projectData.description;
+  
+          const swiperContainer = document.createElement('div');
+          swiperContainer.className = 'swiper-container';
+          swiperContainer.innerHTML = `
+            <div class="swiper-wrapper">
+              ${projectData.slideshow}
+            </div>
+            <div class="swiper-pagination"></div>
+          `;
+  
+          slideshow.innerHTML = '';
+          slideshow.appendChild(swiperContainer);
+  
+          const mySwiper = new Swiper(swiperContainer, {
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          });
+        }
       }
     });
   });
+  
 
 
   function getProjectData(projectId) {
     const projects = {
     project1: {
       title: 'How to build a telescope',
-      description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention...',
-      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="HTBAT_01.jpg"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_03.jpg" alt="Project 1 Image 3"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_04.jpg" alt="Project 1 Image 2"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_02.jpg" alt="Project 1 Image 4"></div>'
+      description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention.Being intimate, the project reveals itself against an ethnographic approach, seeking to dismantle prejudices associated with technology that, in he contemporary rural world, has its maximum expression of freedom. The approach is thus fictional and it’s constantly drawing a constellation map surrounding the perception of affection on technology. It addresses the importance of reshaping the future of technology against mass production, proposing a reconnection between user, creator and creations.',
+      slideshow: (() => {
+        let slides = '';
+        for (let i = 1; i <= 22; i++) {
+          slides += `<div class="swiper-slide"><img src="./content/jpg/HTBAT_${i.toString().padStart(2, '0')}.jpg" alt="HTBAT_${i.toString().padStart(2, '0')}.jpg"></div>`;
+        }
+        return slides;
+      })()
     },
     project2: {
       title: 'Rise of trivial',
-      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 2 Image 1"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 2 Image 2"></div>',
-      description: '‘Rise of trivial’ is a multiplatform project about virtual identity and the ways we interact in the internet.'
+      series: [
+        {
+          title: 'Persona',
+          description: '‘Persona’ series uses a term of digital marketing. It questions the platonic facet of the network: although we do not see it, we accept its existence. This creed is represented by tridimensional portraits (in the form of busts), result of the consent of individuals to be photographed in a social context. Through photogrammetric processes it was possible to collect superficial data related to their apparent identity. Seduction is present in the background’s hue of the busts, which are based on psychological strategies applied to colors used by the social platforms of the internet. ',
+          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+        },
+        {
+          title: 'ANN',
+          description: '‘ANN’ stands for Artificial Neural Network. Similarly to the brain it’s a system that evolves from data analysis, following a learning method that allows the recognition of patterns. ‘ANN’ questions the learning process of new artificial intelligence. Atfer the Internet, we ceased looking for the Plato’s Eden and start building a world of forms in our own image, creating new religions such as Dataism. For what purposes are we creating these huge databases? Can we trust in computer generated data? Can we continue to talk about images as a strictly visual language? ',
+          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series2_01.jpg" alt="Project2_Series2_01.jpg"></div>...'
+        },
+        {
+          title: 'Backup',
+          description: '‘Backup’ series reflects the concept of digital documents, not only as vehicles for information but also as testimonies of isolated uses and behaviors in a virtual scenario, using the power of duplication and making it a protocol. On one hand we have figurative representations of behavior patterns; on the other hand we have the paradigm of uncontrolled information related to our digital identity, making the “right to be forgotten on the internet” a truly utopian operation. The liberalism of the information market only leaves us with two choices: to accept everything or to enjoy nothing.',
+          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+        },
+        {
+          title: 'Non-causes',
+          description: 'Non-causes Description',
+          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+        },
+        {
+          title: 'Inscription',
+          description: 'Inscription Description',
+          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+        }
+      ]
     },
     project3: {
       title: 'Glad I spent it with you',
-      description: 'There is no such thing as a manual on reading digital images for humans...',
-      slideshow: `
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_01.jpg" alt="Project 3 Image 1"></div>
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_02.jpg" alt="Project 3 Image 2"></div>
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_03.jpg" alt="Project 3 Image 3"></div>
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_04.jpg" alt="Project 3 Image 4"></div>
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_05.jpg" alt="Project 3 Image 5"></div>
-        <div class="swiper-slide"><img src="./content/jpg/GISWY_06.jpg" alt="Project 3 Image 6"></div>
-      `
+      description: 'There is no such thing as a manual on reading digital images for humans. “Glad I spent it with you” is a set of images that unveil the basic structure of a digital image. These images are the product of unintentional errors that occured with a broken storage card. Although the files were corrupted, the machine maked the effort on reading the data, producing images that denounce the reading methods of the basic units that constitutes the digital photographs we produce with our cameras. This project intends to reclaim the authorship associated with images whose initial intention of assisting memory transforms into the realization and consecration of the digital image as an ephemeral by-product of contemporary virtual culture.',
+      slideshow: (() => {
+        let slides = '';
+        for (let i = 1; i <= 6; i++) {
+          slides += `<div class="swiper-slide"><img src="./content/jpg/GISWY_${i.toString().padStart(2, '0')}.jpg" alt="GISWY_${i.toString().padStart(2, '0')}.jpg"></div>`;
+        }
+        return slides;
+      })()
     },
     project4: {
       title: 'Narrow Slice',
-      slideshow: '<div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 4 Image 1"></div><div class="swiper-slide"><img src="./content/jpg/HTBAT_01.jpg" alt="Project 4 Image 2"></div>',
-      description: '“Isn’t the human emancipation of Nature really just an outcome of our own Nature?”...'
+      description: '“Isn’t the human emancipation of Nature really just an outcome of our own Nature?” ‘Narrow Slice’ is a documentary photography project that deals with the way human beings position themselves in time and space in relation to Nature. The unease caused by the ambiguity of this query proposes us to revisit the apparent reality, leading to the formulation of new questions.',
+      slideshow: (() => {
+        let slides = '';
+        for (let i = 1; i <= 12; i++) {
+          slides += `<div class="swiper-slide"><img src="./content/jpg/NS_${i.toString().padStart(2, '0')}.jpg" alt="NS_${i.toString().padStart(2, '0')}.jpg"></div>`;
+        }
+        return slides;
+      })()
     }
   };
 
