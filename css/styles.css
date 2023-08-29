@@ -6,15 +6,12 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  animation: backgroundTransition 20s infinite alternate;
+  animation: backgroundTransition 60s infinite alternate;
 }
 
 @keyframes backgroundTransition {
   0% {
     background-color: #f9be13;
-  }
-  25% {
-    background-color: #58e07a;
   }
   50% {
     background-color: #7ccac6;
