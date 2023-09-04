@@ -1,3 +1,7 @@
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();  // Prevent the context menu from appearing
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const worksLink = document.querySelector('.works-link');
   const aboutLink = document.querySelector('.about-link');
@@ -67,17 +71,29 @@ document.addEventListener('DOMContentLoaded', () => {
           const swiperContainer = document.createElement('div');
           swiperContainer.className = 'swiper-container';
           swiperContainer.innerHTML = `
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper">  
               ${projectData.slideshow}
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
           `;
   
           slideshow.appendChild(swiperContainer);
   
           const mySwiper = new Swiper(swiperContainer, {
+            zoom: true,
+            zoom: {
+              maxRatio: 2,
+              minRatio: 1
+            },
             pagination: {
-              el: '.swiper-pagination',
+              el: ".swiper-pagination",
+              type: "fraction",
+            },
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
             },
           });
   
@@ -118,6 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="swiper-wrapper">
                 ${series.slideshow}
               </div>
+              <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
               <div class="swiper-pagination"></div>
             `;
   
@@ -137,8 +155,18 @@ document.addEventListener('DOMContentLoaded', () => {
             slideshow.appendChild(seriesContainer);
   
             const mySwiper = new Swiper(swiperContainer, {
+              zoom: true,
+              zoom: {
+                maxRatio: 2,
+                minRatio: 1
+              },
               pagination: {
-                el: '.swiper-pagination',
+                el: ".swiper-pagination",
+                type: "fraction",
+              },
+              navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
               },
             });
           });
@@ -155,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slideshow: (() => {
         let slides = '';
         for (let i = 1; i <= 22; i++) {
-          slides += `<div class="swiper-slide"><img src="./content/jpg/HTBAT_${i.toString().padStart(2, '0')}.jpg" alt="HTBAT_${i.toString().padStart(2, '0')}.jpg"></div>`;
+          slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/HTBAT_${i.toString().padStart(2, '0')}.jpg" alt="HTBAT_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
         }
         return slides;
       })()
@@ -170,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
           slideshow: (() => {
             let slides = '';
             for (let i = 1; i <= 5; i++) {
-              slides += `<div class="swiper-slide"><img src="./content/jpg/ROT_P_${i.toString().padStart(2, '0')}.jpg" alt="ROT_P_${i.toString().padStart(2, '0')}.jpg"></div>`;
+              slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/ROT_P_${i.toString().padStart(2, '0')}.jpg" alt="ROT_P_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
             }
             return slides;
           })()
@@ -181,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
           slideshow: (() => {
             let slides = '';
             for (let i = 1; i <= 5; i++) {
-              slides += `<div class="swiper-slide"><img src="./content/jpg/ROT_ANN_${i.toString().padStart(2, '0')}.jpg" alt="ROT_ANN_${i.toString().padStart(2, '0')}.jpg"></div>`;
+              slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/ROT_ANN_${i.toString().padStart(2, '0')}.jpg" alt="ROT_ANN_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
             }
             return slides;
           })()
@@ -192,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
           slideshow: (() => {
             let slides = '';
             for (let i = 1; i <= 5; i++) {
-              slides += `<div class="swiper-slide"><img src="./content/jpg/ROT_B_${i.toString().padStart(2, '0')}.jpg" alt="ROT_B_${i.toString().padStart(2, '0')}.jpg"></div>`;
+              slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/ROT_B_${i.toString().padStart(2, '0')}.jpg" alt="ROT_B_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
             }
             return slides;
           })()
@@ -200,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           title: 'Non-causes',
           description: 'Non-causes Description',
-          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+          slideshow: '<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div></div>...'
         },
         {
           title: 'Inscription',
           description: 'Inscription Description',
-          slideshow: '<div class="swiper-slide"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div>...'
+          slideshow: '<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/Project2_Series1_01.jpg" alt="Project2_Series1_01.jpg"></div></div>...'
         }
       ]
     },
@@ -215,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slideshow: (() => {
         let slides = '';
         for (let i = 1; i <= 8; i++) {
-          slides += `<div class="swiper-slide"><img src="./content/jpg/GISIWY_${i.toString().padStart(2, '0')}.jpg" alt="GISIWY_${i.toString().padStart(2, '0')}.jpg"></div>`;
+          slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/GISIWY_${i.toString().padStart(2, '0')}.jpg" alt="GISIWY_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
         }
         return slides;
       })()
@@ -226,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slideshow: (() => {
         let slides = '';
         for (let i = 1; i <= 12; i++) {
-          slides += `<div class="swiper-slide"><img src="./content/jpg/NS_${i.toString().padStart(2, '0')}.jpg" alt="NS_${i.toString().padStart(2, '0')}.jpg"></div>`;
+          slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/NS_${i.toString().padStart(2, '0')}.jpg" alt="NS_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
         }
         return slides;
       })()
@@ -284,8 +312,18 @@ function animateLinks() {
 animateLinks();
 
 const mySwiper = new Swiper('.swiper-container', {
+  zoom: true,
+  zoom: {
+    maxRatio: 2,
+    minRatio: 1
+  },
   pagination: {
-    el: '.swiper-pagination',
+    el: ".swiper-pagination",
+    type: "fraction",
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
   },
 });
 });
