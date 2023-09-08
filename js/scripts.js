@@ -85,11 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
             zoom: true,
             zoom: {
               maxRatio: 2,
-              minRatio: 1
+              minRatio: 1,
+              toggle: true, // Enable zoom toggle with a single click
             },
             pagination: {
               el: ".swiper-pagination",
-              type: "fraction",
+              type: "bullets",
             },
             navigation: {
               nextEl: ".swiper-button-next",
@@ -158,11 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
               zoom: true,
               zoom: {
                 maxRatio: 2,
-                minRatio: 1
+                minRatio: 1,
+                toggle: true, // Enable zoom toggle with a single click
               },
               pagination: {
                 el: ".swiper-pagination",
-                type: "fraction",
+                type: "bullets",
               },
               navigation: {
                 nextEl: ".swiper-button-next",
@@ -315,11 +317,12 @@ const mySwiper = new Swiper('.swiper-container', {
   zoom: true,
   zoom: {
     maxRatio: 2,
-    minRatio: 1
+    minRatio: 1,
+    toggle: true,
   },
   pagination: {
     el: ".swiper-pagination",
-    type: "fraction",
+    type: "bullets",
   },
   navigation: {
     nextEl: ".swiper-button-next",
