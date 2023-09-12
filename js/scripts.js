@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutContent = document.querySelector('.about-content');
 
   let projectLinksVisible = false; // To track whether project links are visible
+  const originalIframeSrc = backgroundIframe.src; // Store the original iframe URL
 
 
   worksLink.addEventListener('click', () => {
     projectsContainer.style.visibility = 'visible';
     projectLinksVisible = true;
+    backgroundIframe.src = ''; // Unload the iframe by setting src to an empty string
     backgroundIframe.style.display = 'none';
     aboutContent.style.display = 'none'; // Hide the about content
   });
@@ -29,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   aboutLink.addEventListener('click', () => {
     projectsContainer.style.visibility = 'hidden'; // Hide project links
     projectLinksVisible = false; // Set project links visibility to false
+    backgroundIframe.src = ''; // Unload the iframe by setting src to an empty string
     backgroundIframe.style.display = 'none'; // Hide the iframe
     overlayContainer.style.display = 'none';
     aboutContent.style.display = 'flex'; // Show about content
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   nameText.addEventListener('click', () => {
     projectsContainer.style.visibility = 'hidden';
+    backgroundIframe.src = originalIframeSrc; // Restore the original iframe URL
     backgroundIframe.style.display = 'block';
     aboutContent.style.display = 'none'; // Hide the about content
     overlayContainer.style.display = 'none';
@@ -86,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             zoom: {
               maxRatio: 2,
               minRatio: 1,
-              toggle: true, // Enable zoom toggle with a single click
             },
             pagination: {
               el: ".swiper-pagination",
@@ -310,6 +313,7 @@ function animateLinks() {
   time += speed;
   requestAnimationFrame(animateLinks);
 }
+
 
 animateLinks();
 

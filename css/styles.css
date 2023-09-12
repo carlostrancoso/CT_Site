@@ -229,7 +229,7 @@ h1.logo a {
 }
 
 .overlay-content::-webkit-scrollbar {
-  width: 6px; /* Width of the scrollbar */
+  width: 3px; /* Width of the scrollbar */
 }
 
 .overlay-content::-webkit-scrollbar-thumb {
@@ -245,7 +245,7 @@ h1.logo a {
 }
 
 .about-content::-webkit-scrollbar {
-  width: 6px; /* Width of the scrollbar */
+  width: 4px; /* Width of the scrollbar */
 }
 
 .about-content::-webkit-scrollbar-thumb {
@@ -306,7 +306,7 @@ h1.logo a {
   .overlay-content {
     width: 85vw;
     height: 70vh;
-    border: 6px solid #000;
+    border: 4px solid #000;
   }
 
   .project-title {
@@ -318,9 +318,9 @@ h1.logo a {
   }
   
   .close-button {
-    width: 70px;
-    height: 70px;
-    font-size: 70px;
+    width: 60px;
+    height: 60px;
+    font-size: 60px;
   }
     .swiper-pagination-fraction {
       font-size: 20px; /* Adjust to your desired font size */

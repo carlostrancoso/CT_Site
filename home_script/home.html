@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inscription</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <style type="text/css">
+      body {
+        font-family: Monospace;
+        background-color: #000;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script src="./lib/three.min.js"></script>
+    <script src="./lib/gltf.loader.js"></script>
+    <script src="./lib/TweenMax.min.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
+    <script src="./lib/dat.gui.min.js"></script>
+    <script src="./lib/Stats.min.js"></script>
+    <script src="./dist/modifiers.min.js"></script>
+    <script src="./js/tmm.js"></script>
+    <script>
+      var camera, scene, renderer, clock,stats;
+      var modifier, mesh;
+      var randomRotationX, randomRotationY, randomRotationZ;
+
+
+      init();
+      function init() {
+        initScene();
+        initLights();
+        initMesh();
+        initControls();
+        animate();
+        generateRandomRotations(); // Generate random rotations once at the start
+      }
+
+      function generateRandomRotations() {
+  randomRotationX = (Math.random() - 0.5) * 0.007;
+  randomRotationY = (Math.random() - 0.5) * 0.007;
+  randomRotationZ = (Math.random() - 0.5) * 0.007;
+}
+
+
+      function initScene() {
+        camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.z = 90;
+        scene = new THREE.Scene();
+        // scene.fog = new THREE.Fog(0x000000, 300, 400);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor( 0x000000, 1 );
+
+        clock = new THREE.Clock();
+        document.body.appendChild(renderer.domElement);
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      function initLights() {
+   /*      var pointLight = new THREE.PointLight(0xffffff, 2, 1000, 1);
+        pointLight.position.set(0, 500, 500);
+        scene.add(pointLight);
+
+        var ambient = new THREE.AmbientLight(0x444444);
+        scene.add(ambient);
+
+        var light1 = new THREE.DirectionalLight(0xefefff, 1.5);
+        light1.position.set(1, 1, 1).normalize();
+        scene.add(light1);
+
+        var light2 = new THREE.DirectionalLight(0xffefef, 1.5);
+        light2.position.set(-1, -1, -1).normalize();
+        scene.add(light2); */
+
+  //luz ambiente
+
+  const light = new THREE.AmbientLight( 0xffffff, 1 ); // soft white light
+  scene.add( light );
+  
+  //luz vermelha
+  {
+    var color = 0xFF0000;
+    var intensity = 4;
+    var lightR = new THREE.DirectionalLight(color, intensity);
+    lightR.position.set(5, 10, 10);
+    scene.add(lightR);
+    scene.add(lightR.target);
+  }
+
+    //luz azul
+  {
+    var color = 0x0000FF;
+    var intensity = 5; 
+    var lightB = new THREE.DirectionalLight(color, intensity);
+    lightB.position.set(2, -5, 2);
+    scene.add(lightB);
+    scene.add(lightB.target);
+  }
+
+   
+    //luz verde
+    
+  {
+    var color = 0x00FF00;
+    var intensity = 3;
+    var lightG = new THREE.DirectionalLight(color, intensity);
+    lightG.position.set(-10, 12, 2);
+    scene.add(lightG);
+    scene.add(lightG.target);
+  }
+  
+      }
+
+      function initControls() {
+        var cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
+        cameraControls.target.set(0, 0, 0);
+        // Disable zoom
+    cameraControls.enableZoom = false;
+      }
+
+      function initMesh() {
+  const loader = new THREE.GLTFLoader();
+  loader.load("model/Busto_2.glb", function(gltf) {
+    var material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      morphTargets: true,
+      morphNormals: true,
+      vertexColors: THREE.FaceColors
+    });
+
+    mesh = gltf.scene.children[0];
+    
+    mesh.material.side = THREE.DoubleSide;
+    
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
+    mesh.position.y = 0;
+    mesh.rotation.y = 0;
+    scene.add(mesh);
+
+    modifier = addModifier(mesh);
+
+    animate(); 
+  });
+}
+      function animate() {
+       
+
+        if (mesh) {
+    mesh.rotation.x += randomRotationX;
+    mesh.rotation.y += randomRotationY;
+    mesh.rotation.z += randomRotationZ;
+  }
+        requestAnimationFrame(animate);
+        var delta = clock.getDelta();
+        renderer.render(scene, camera);
+        modifier && modifier.apply();
+        
+      }
+
+      function onWindowResize() {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      }
+    </script>
+  </body>
+</html>
