@@ -1,6 +1,6 @@
-document.addEventListener("contextmenu", function(e) {
-  e.preventDefault();  // Prevent the context menu from appearing
-});
+// document.addEventListener("contextmenu", function(e) {
+//   e.preventDefault();  // Prevent the context menu from appearing
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
   const worksLink = document.querySelector('.works-link');
@@ -17,30 +17,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutContent = document.querySelector('.about-content');
 
   let projectLinksVisible = false; // To track whether project links are visible
-  const originalIframeSrc = backgroundIframe.src; // Store the original iframe URL
-
 
   worksLink.addEventListener('click', () => {
     projectsContainer.style.visibility = 'visible';
     projectLinksVisible = true;
-    backgroundIframe.src = ''; // Unload the iframe by setting src to an empty string
-    backgroundIframe.style.display = 'none';
     aboutContent.style.display = 'none'; // Hide the about content
+
+    // Remove the iframe element from the DOM
+  if (backgroundIframe.parentNode) {
+    backgroundIframe.parentNode.removeChild(backgroundIframe);
+  }
   });
 
   aboutLink.addEventListener('click', () => {
     projectsContainer.style.visibility = 'hidden'; // Hide project links
     projectLinksVisible = false; // Set project links visibility to false
-    backgroundIframe.src = ''; // Unload the iframe by setting src to an empty string
-    backgroundIframe.style.display = 'none'; // Hide the iframe
     overlayContainer.style.display = 'none';
     aboutContent.style.display = 'flex'; // Show about content
     document.body.style.overflow = ''; // Restore body scrolling
+
+    // Remove the iframe element from the DOM
+  if (backgroundIframe.parentNode) {
+    backgroundIframe.parentNode.removeChild(backgroundIframe);
+  }
   });
 
   closeButton.addEventListener('click', () => {
     projectsContainer.style.visibility = 'visible';
-    backgroundIframe.style.display = 'none';
     aboutContent.style.display = 'none'; // Hide the about content
     overlayContainer.style.display = 'none'; // Hide the overlay
     document.body.style.overflow = ''; // Restore body scrolling
@@ -48,11 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   nameText.addEventListener('click', () => {
     projectsContainer.style.visibility = 'hidden';
-    backgroundIframe.src = originalIframeSrc; // Restore the original iframe URL
-    backgroundIframe.style.display = 'block';
     aboutContent.style.display = 'none'; // Hide the about content
     overlayContainer.style.display = 'none';
     document.body.style.overflow = ''; // Restore body scrolling
+
+   // Check if the iframe is already in the DOM
+  if (!document.contains(backgroundIframe)) {
+    // Add the iframe element back to the DOM
+    document.body.appendChild(backgroundIframe);
+
+    // Set the display property of the iframe to 'block' or 'inline-block'
+    backgroundIframe.style.display = 'block'; // Adjust this to match your layout
+  }
+
   });
   
   projectLinks.forEach((link) => {

@@ -54,7 +54,7 @@
         scene = new THREE.Scene();
         // scene.fog = new THREE.Fog(0x000000, 300, 400);
 
-        renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({ antialias: true, precision: 'mediump' });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor( 0x000000, 1 );
