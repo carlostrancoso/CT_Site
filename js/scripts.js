@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set the display property of the iframe to 'block' or 'inline-block'
     backgroundIframe.style.display = 'block'; // Adjust this to match your layout
-  }
+  } 
 
   });
   
