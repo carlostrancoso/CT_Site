@@ -21,8 +21,8 @@
       var maxDistanceY = window.innerHeight / 2;
 
       // Define the desired range for noise.frc
-      var noiseFrcMin = 0.0001;   // Minimum noise.frc value
-      var noiseFrcMax = 0.02;    // Maximum noise.frc value
+      var noiseFrcMin = 0.001;   // Minimum noise.frc value
+      var noiseFrcMax = 0.2;    // Maximum noise.frc value
 
       // Calculate the mapped noise.frc value based on distances
       var mappedValueX = map(distanceX, 0, maxDistanceX, noiseFrcMin, noiseFrcMax);

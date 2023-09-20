@@ -9,6 +9,12 @@ body {
   animation: backgroundTransition 60s infinite alternate;
 }
 
+hr {
+  border: none; /* Remove the default border */
+  border-top: 2px solid #000000; /* Adjust the thickness and color */
+  margin: 50px; /* Adjust the margin as needed to align with the container */
+}
+
 @keyframes backgroundTransition {
   0% {
     background-color: #f9be13;
@@ -154,7 +160,7 @@ h1.logo a {
 }
 
 .swiper-zoom-container>canvas,.swiper-zoom-container>img,.swiper-zoom-container>svg {
-  max-width: 500px;
+  max-height: 600px;
 
 }
 
@@ -294,12 +300,10 @@ h1.logo a {
     margin-right: 20px;
   }
 
-  .image-container img {
-    max-width: 700px;
-  }
+ 
 
   .swiper-zoom-container>canvas,.swiper-zoom-container>img,.swiper-zoom-container>svg {
-    max-width: 700px;
+    max-height: 700px;
   
   }
   
