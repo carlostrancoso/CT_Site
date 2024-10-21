@@ -7,8 +7,8 @@
     const aboutLink = document.querySelector('.about-link');
     const nameText = document.querySelector('.name.logo');
     const projectLinks = document.querySelectorAll('.projects');
-    const projectsContainer = document.querySelector('.projects-container');
-    const backgroundIframe = document.querySelector('.background-iframe');
+    const projectsContainer = document.querySelector('.works-container');
+    const backgroundIframe = document.querySelector('.background-iframes');
     const overlayContainer = document.querySelector('.overlay-container');
     const closeButton = document.querySelector('.close-button');
     const projectTitle = document.querySelector('.project-title');
@@ -61,7 +61,7 @@
       document.body.appendChild(backgroundIframe);
 
       // Set the display property of the iframe to 'block' or 'inline-block'
-      backgroundIframe.style.display = 'block'; // Adjust this to match your layout
+      backgroundIframe.style.display = 'grid'; // Adjust this to match your layout
     } 
 
     });
@@ -76,6 +76,7 @@
         const projectData = getProjectData(projectId);
     
         if (projectData) {
+          
           overlayContainer.style.display = 'flex';
           document.body.style.overflow = 'hidden';
     
@@ -202,7 +203,7 @@
       const projects = {
       project1: {
         title: 'How to build a telescope',
-        description: '‘How to build a telescope’ is an essay on technology in a rural context. It is a project that lives in the day-to-day of my reflections on the topic of curiosity and the need for invention.Being intimate, the project reveals itself against an ethnographic approach, seeking to dismantle prejudices associated with technology that, in he contemporary rural world, has its maximum expression of freedom. The approach is thus fictional and it’s constantly drawing a constellation map surrounding the perception of affection on technology. It addresses the importance of reshaping the future of technology against mass production, proposing a reconnection between user, creator and creations.',
+        description: '‘How to build a telescope’ is about technology in a rural context, reflecting on the topics of curiosity and the need for invention. It is also on the complexity of science and the laws of physics and how they are closely related with the common everyday experience of being alive. The narrative is constructed around a found book and set in a small isolated village where technology has its maximum expression of freedom. It addresses the importance of reshaping the future of technology against mass production, proposing a reconnection between user, creator and creations. The photos were taken between 2018 and 2023 and the title, directly translated from the found book, embodies the concept of a technology designed for isolated areas and the juxtaposition of the cosmos and the mundane life.',
         slideshow: (() => {
           let slides = '';
           for (let i = 1; i <= 22; i++) {
@@ -249,8 +250,8 @@
             })()
           },
           {
-            title: 'Non-causes',
-            description: 'Non-causes Description',
+            title: 'Non Causes',
+            description: 'Non Causes’ is the materialization of paper installations created from ephemeral sculptures of books. Based on the philosophical concept of "Non-things" by Byung-Chul Han, this series explores the new values of the information market that challenge the worth of physical objects in the era of dataism.',
             slideshow: (() => {
               let slides = '';
               for (let i = 1; i <= 7; i++) {
@@ -261,10 +262,10 @@
           },
           {
             title: 'Inscription',
-            description: 'Inscription Description',
+            description: '‘Inscription’ is the outcome of an artistic residency held at Fórum Maia during the Bienal da Maia 2023. Over a two-week period, individuals involved in conceptualizing and producing the Contemporary Art Bienal were photographed and transformed into 3D models showcased as papercraft sculptures. Throughout the five-month duration of the Bienal, these individuals become residents of Fórum Maia, engaging in a spontaneous performance with the exhibition. Visitors can witness and interact with these individuals, broadening their perception of the sculptures and establishing connections between real individuals (through general perception), avatar representations (through this site and the mupis), and the sculptures. By participating in this project, individuals embrace an Inscription as a metaphorical expression of the everyday consent demanded by the web, joining a distinctive club associated with the Bienal.',
             slideshow: (() => {
               let slides = '';
-              for (let i = 1; i <= 3; i++) {
+              for (let i = 1; i <= 7; i++) {
                 slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/ROT_I_${i.toString().padStart(2, '0')}.jpg" alt="ROT_I_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
               }
               return slides;
@@ -293,6 +294,45 @@
           }
           return slides;
         })()
+      },
+      project5: {
+        title: 'Collaborations',
+        description: 'Some of the collaborations works I have with Ivan da Silva, Marco Duarte, Barda Collective and others.',
+        series: [
+          {
+            title: 'Membrana',
+            description: 'In collaboration with Barda Collective. ’Membrana’ is an exhibition that explores the convergence of personal and collective experiences. It’s an immersive showcase that delves into sensory adaptation and the interplay between public and private spaces. Through artful use of color, movement, and sensory elements, everyday life is deconstructed, revealing hidden layers of our reality. As you engage with the exhibition, you’re invited to question and reflect on the essence of human connection and perception.',
+            slideshow: (() => {
+              let slides = '';
+              for (let i = 1; i <= 11; i++) {
+                slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/M_${i.toString().padStart(2, '0')}.jpg" alt="M_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
+              }
+              return slides;
+            })()
+          },
+          {
+            title: 'PopPorn',
+            description: 'In collaboration with Marco Duarte. ’PopPorn’ is an immersive art experience delving into the visual portrayal of politics in the media. This interactive installation encourages participants to explore the complexities of power, influence, and perception in the realm of TV politics. Using a mouse, visitors can uncover layers of media imagery that depict the interconnectedness of populist politics, television, and desire.',
+            slideshow: (() => {
+              let slides = '';
+              for (let i = 1; i <= 5; i++) {
+                slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/PP_${i.toString().padStart(2, '0')}.png" alt="PP_${i.toString().padStart(2, '0')}.png"></div></div>`;
+              }
+              return slides;
+            })()
+          },
+          {
+            title: 'Junta Seca',
+            description: 'In collaboration with Ivan da Silva. ’Junta Seca’ is an exhibition that uncovers the forgotten narratives of nomadic social spaces. Within its confines, remnants of an unnamed, unrecorded group’s history are explored and reimagined. This exhibition breathes life into discarded artifacts, offering a glimpse into the ever-shifting interplay of time, societal dynamics, and urban landscapes. ’Junta Seca’ is a journey of deterritorialization and reterritorialization, where waste finds new meaning within the city’s stone walls, revealing the untold stories of the past.',
+            slideshow: (() => {
+              let slides = '';
+              for (let i = 1; i <= 7; i++) {
+                slides += `<div class="swiper-slide"><div class="swiper-zoom-container"><img src="./content/jpg/JS_${i.toString().padStart(2, '0')}.jpg" alt="JS_${i.toString().padStart(2, '0')}.jpg"></div></div>`;
+              }
+              return slides;
+            })()
+          }
+        ]
       }
     };
 
@@ -336,8 +376,8 @@
       const projectOffset = index * 10;
       const projectXMovement = projectOffset + Math.sin(time) * 6 + mouseY / window.innerHeight * 4 - 2;
       const projectYMovement = projectOffset + Math.cos(time) * 6 + mouseX / window.innerWidth * 4 - 2;
-
-      link.style.transform = `translateX(${projectXMovement}px) translateY(${projectYMovement}px) skewX(${projectYMovement / 10}deg) skewY(${projectXMovement / -4}deg)`;
+  
+        link.style.transform = `translateX(${projectXMovement}px) translateY(${projectYMovement}px) skewX(${projectYMovement / 10}deg) skewY(${projectXMovement / -4}deg)`;
     });
 
     time += speed;
